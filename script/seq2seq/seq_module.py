@@ -229,7 +229,7 @@ class Seq2seq(object):
                 start_epoch = int(start_epoch)+1
                 print('Model restored')
 
-                if hp.num_epochs_trans > start_epoch:
+                if hp.num_epochs_main > start_epoch:
                     print("Starting from epoch : ", start_epoch)
 
             # or initialize
@@ -238,7 +238,7 @@ class Seq2seq(object):
                 start_epoch = 1
                 print("Starting from scratch")
 
-            for epoch in range(start_epoch, hp.num_epochs_trans+1):
+            for epoch in range(start_epoch, hp.num_epochs_main+1):
 
                 epoch_loss = 0
                 # initialize iterator
@@ -253,7 +253,7 @@ class Seq2seq(object):
                     _, step_loss = sess.run([self.train_op, self.loss])
                     epoch_loss += step_loss
 
-                print("Current Epoch : {:02d} Loss: {:.4f}".format(epoch, epoch_loss/num_batch))
+                print("Current Epoch : {:02d} Loss: {:.4f}".format(epoch, epoch_loss/(num_batch+1)))
                 curr_gstep = sess.run(self.global_step)
 
                 if epoch % 5 == 0:

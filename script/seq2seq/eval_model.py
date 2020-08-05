@@ -5,10 +5,6 @@ import tensorflow as tf
 import numpy as np
 from seq2seq.seq_module import Seq2seq
 
-import tensorflow.python.util as deprecation
-deprecation._PER_MODULE_WARNING_LIMIT = 0
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
-
 sys.path.append("../")
 from text_cnn.train_cnn import Cnn_Graph
 from misc.data_prep import *
@@ -63,12 +59,11 @@ def idx_to_word(idx):
 
 def save_result(fout, source, tag, answer, beam_width=0, post_process=True, morfessor=False):
     '''save result (original sent, predicted tag, predicted answer)'''
-    tags = ["분노", "행복", "슬픔", "걱정", "심심"]
 
     with codecs.open(fout, 'w', encoding='utf-8') as f:
         for j, (single_s, single_t, single_a) in enumerate(zip(source, tag, answer)):
             f.write("Question {} : {}\n".format(j, process_answer(single_s, morfessor)))
-            f.write("Tag : " + tags[int(single_t)]+"\n")
+            f.write("Tag : " + str(single_t)+"\n")
 
             if beam_width > 0:
                 single_a = list(np.transpose(np.array(single_a)))

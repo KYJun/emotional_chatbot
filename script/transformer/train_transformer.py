@@ -85,7 +85,7 @@ class Tr_Graph():
                 for i in range(hp.num_blocks):
                     with tf.variable_scope("num_blocks_{}".format(i)):
                         ### Multihead Attention
-                        print(self.enc)
+                        #print(self.enc)
                         self.enc = multihead_attention(queries=self.enc,
                                                        keys=self.enc,
                                                        num_units=hp.hidden_units,
@@ -211,7 +211,7 @@ def train_transformer():
                 global_step = int(global_step)
                 print('Model restored')
 
-                if hp.num_epochs_trans > start_epoch:
+                if hp.num_epochs_main > start_epoch:
                     print("Starting from epoch : ", start_epoch)
 
             # or initialize
@@ -221,7 +221,7 @@ def train_transformer():
                 start_epoch = 1
                 print("Starting from scratch")
 
-            for epoch in range(start_epoch, hp.num_epochs_trans+1):
+            for epoch in range(start_epoch, hp.num_epochs_main+1):
 
                 epoch_loss = 0
                 # initialize iterator

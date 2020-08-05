@@ -71,14 +71,16 @@ def idx_to_word(idx):
 
 def save_result(fout, source, tag, answer):
     '''save result (original sent, predicted tag, predicted answer)'''
-    tags = ["부정", "긍정"]
 
     with codecs.open(fout, 'w', encoding='utf-8') as f:
         for single_s, single_t, single_a in zip(source, tag, answer):
             f.write("Question : "+ idx_to_word(single_s)+"\n")
-            f.write("Tag : " + tags[int(single_t)]+"\n")
-            single_new_a = process_answer(single_a)
-            f.write("Answer : " + process_end(idx_to_word(single_new_a))+"\n")
+            f.write("Tag : " + str(single_t) +"\n")
+            if hp.postprocess:
+                single_new_a = process_answer(single_a)
+                single_a = process_end(idx_to_word(single_new_a))
+            single_a = idx_to_word(single_a)
+            f.write("Answer : " + single_a +"\n")
 
 def process_answer(answer):
 
@@ -114,7 +116,7 @@ def process_end(answer):
     return new_a
 
 
-def eval():
+def eval_tf():
     # get necessary data and param
     maxlen = get_maxlen()
     word_dict = load_pickle(os.path.join(hp.datapath, "dict.pkl"))
@@ -128,7 +130,7 @@ def eval():
 
 if __name__ == '__main__':
     os.chdir("../")
-    eval()
+    eval_tf()
     print("Done")
 
 
