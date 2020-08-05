@@ -2,8 +2,15 @@
 
 : data 관리를 담당하는 함수를 정리하였다. create_data( )를 제외하고 단독으로 쓰이지 않는다.
 
-- data_prep.py
-    
+#### data_prep.py
+
+data 예시는 다음과 같다.
+
+```
+A: [문장]
+B: [문장], [감정 태그]
+```
+
 ```
 input_data, target_data, tag, word_list = read_raw_data(filename)
 ```

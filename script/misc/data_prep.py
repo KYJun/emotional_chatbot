@@ -88,9 +88,9 @@ def build_vocab(word_list):
     rev_vocab = ["_UNK", "_PAD", "_STR", "_END"]
     rev_vocab.extend(freq_word_list)
 
-    with open("word_list.txt", "w") as f:
-        for single_contents in write_word_list:
-            f.write(single_contents+"\n")
+    #with open("word_list.txt", "w") as f:
+    #    for single_contents in write_word_list:
+    #        f.write(single_contents+"\n")
     print(freq_word_list[:10])
     return vocab, rev_vocab
 
