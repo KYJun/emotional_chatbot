@@ -253,7 +253,7 @@ class Seq2seq(object):
                     _, step_loss = sess.run([self.train_op, self.loss])
                     epoch_loss += step_loss
 
-                print("Current Epoch : {:02d} Loss: {:.4f}".format(epoch, epoch_loss/(num_batch+1)))
+                print("Current Epoch : {:02d} Loss: {:.4f}".format(epoch, epoch_loss/num_batch))
                 curr_gstep = sess.run(self.global_step)
 
                 if epoch % 5 == 0:
