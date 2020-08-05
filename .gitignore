@@ -130,3 +130,7 @@ dmypy.json
 
 # manual
 .DS_Store
+logdir*
+data
+word_list.txt
+out.txt
