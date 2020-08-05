@@ -206,6 +206,7 @@ class Seq2seq(object):
 
         enc_input, dec_input = load_train_data("transformer", hp.datapath)
         num_batch = enc_input.shape[0] // hp.batch_size
+        assert num_batch > 0
 
         with self.graph.as_default():
             self.build_graph(is_training=True)
@@ -215,12 +216,11 @@ class Seq2seq(object):
             # load from checkpoint
             if tf.train.get_checkpoint_state(hp.logdir_s):
                 self.saver.restore(sess, tf.train.latest_checkpoint(hp.logdir_s))
-                a = re.findall("[0-9]+", tf.train.latest_checkpoint(hp.logdir_s))
                 start_epoch, global_step = re.findall("[0-9]+", tf.train.latest_checkpoint(hp.logdir_s))
                 start_epoch = int(start_epoch)+1
                 print('Model restored')
 
-                if hp.num_epochs_trans > start_epoch:
+                if hp.num_epochs_main > start_epoch:
                     print("Starting from epoch : ", start_epoch)
 
             # or initialize
@@ -229,7 +229,7 @@ class Seq2seq(object):
                 start_epoch = 1
                 print("Starting from scratch")
 
-            for epoch in range(start_epoch, hp.num_epochs_trans+1):
+            for epoch in range(start_epoch, hp.num_epochs_main+1):
 
                 epoch_loss = 0
 
